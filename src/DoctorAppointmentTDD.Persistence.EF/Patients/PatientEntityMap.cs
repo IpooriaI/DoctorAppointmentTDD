@@ -14,7 +14,7 @@ namespace DoctorAppointmentTDD.Persistence.EF.Patients
             _.Property(_ => _.Id)
                 .ValueGeneratedOnAdd();
 
-            _.Property( _=> _.FirstName)
+            _.Property(_ => _.FirstName)
                 .IsRequired()
                 .HasMaxLength(50);
 

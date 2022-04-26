@@ -1,14 +1,10 @@
-﻿using DoctorAppointmentTDD.Infrastructure.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DoctorAppointmentTDD.Entities;
+using DoctorAppointmentTDD.Infrastructure.Application;
 
 namespace DoctorAppointmentTDD.Services.Doctors.Contracts
 {
     public interface DoctorRepository : Repository
     {
-
+        void Add(Doctor doctor);
     }
 }
