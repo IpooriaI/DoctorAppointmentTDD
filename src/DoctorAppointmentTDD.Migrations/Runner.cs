@@ -14,25 +14,25 @@ namespace DoctorAppointmentTDD.Migrations
 
             var connectionString = options.ConnectionString;
 
-            //CreateDatabase(connectionString);
+            CreateDatabase(connectionString);
 
             var runner = CreateRunner(connectionString, options);
 
             runner.MigrateUp();
         }
 
-        //private static void CreateDatabase(string connectionString)
-        //{
-        //    var databaseName = GetDatabaseName(connectionString);
-        //    string masterConnectionString = ChangeDatabaseName(connectionString, "master");
-        //    var commandScript = $"if db_id(N'{databaseName}') is null create database [{databaseName}]";
+        private static void CreateDatabase(string connectionString)
+        {
+            var databaseName = GetDatabaseName(connectionString);
+            string masterConnectionString = ChangeDatabaseName(connectionString, "master");
+            var commandScript = $"if db_id(N'{databaseName}') is null create database [{databaseName}]";
 
-        //    using var connection = new SqlConnection(masterConnectionString);
-        //    using var command = new SqlCommand(commandScript, connection);
-        //    connection.Open();
-        //    command.ExecuteNonQuery();
-        //    connection.Close();
-        //}
+            using var connection = new SqlConnection(masterConnectionString);
+            using var command = new SqlCommand(commandScript, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
 
         private static string ChangeDatabaseName(string connectionString, string databaseName)
         {

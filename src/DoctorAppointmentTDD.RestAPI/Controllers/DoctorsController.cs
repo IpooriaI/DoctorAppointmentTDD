@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DoctorAppointmentTDD.Services.Doctors.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointmentTDD.RestAPI.Controllers
 {
+    [Route("api/doctors")]
+    [ApiController]
     public class DoctorsController : Controller
     {
-        public IActionResult Index()
+        private readonly DoctorService _service;
+
+        public DoctorsController(DoctorService service)
         {
-            return View();
+            _service = service;
         }
+
+        [HttpPost]
+        public void Add(AddDoctorDto dto)
+        {
+            _service.Add(dto);
+        }
+
     }
 }
