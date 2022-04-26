@@ -1,10 +1,13 @@
-﻿using DoctorAppointmentTDD.Infrastructure.Application;
+﻿using DoctorAppointmentTDD.Entities;
+using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Infrastructure.Tests;
 using DoctorAppointmentTDD.Persistence.EF;
 using DoctorAppointmentTDD.Persistence.EF.Doctors;
 using DoctorAppointmentTDD.Services.Doctors;
 using DoctorAppointmentTDD.Services.Doctors.Contracts;
+using DoctorAppointmentTDD.Services.Doctors.Exceptions;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
@@ -30,10 +33,10 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         {
             var dto = new AddDoctorDto
             {
-                NationalCode = "1234567890",
                 FirstName = "DummyName",
                 LastName = "DummyFamily",
-                Field = "DummyField"
+                Field = "DummyField",
+                NationalCode = "1234567890",
             };
 
 
@@ -44,8 +47,34 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 .Contain(_ => _.FirstName == dto.FirstName);
         }
 
+        [Fact]
+        public void Add_should_throw_exception_DoctorAlreadyExistsException_if_doctor_already_exists()
+        {
+            var doctor = new Doctor
+            {
+                FirstName = "TestName",
+                LastName = "TestLastName",
+                Field = "DummyField",
+                NationalCode = "1234567890"
+            };
+            var dto = new AddDoctorDto
+            {
+                FirstName = "DummyName",
+                LastName = "DummyFamily",
+                Field = "DummyField",
+                NationalCode = "1234567890",
+            };
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
+
+
+            Action expected = () => _sut.Add(dto);
+
+
+            expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
+        }
 
 
     }
+
 
 }

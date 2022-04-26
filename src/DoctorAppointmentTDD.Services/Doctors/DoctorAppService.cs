@@ -1,6 +1,7 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Services.Doctors.Contracts;
+using DoctorAppointmentTDD.Services.Doctors.Exceptions;
 
 namespace DoctorAppointmentTDD.Services.Doctors
 {
@@ -23,9 +24,16 @@ namespace DoctorAppointmentTDD.Services.Doctors
                 Field = dto.Field,
                 NationalCode = dto.NationalCode,
             };
+            var doesDoctorExist = _repository.DoesNationalCodeExist(dto.NationalCode);
+            
+            
+            if(doesDoctorExist)
+            {
+                throw new DoctorAlreadyExistsException();
+            }
+
 
             _repository.Add(doctor);
-
             _unitOfWork.Commit();
         }
     }
