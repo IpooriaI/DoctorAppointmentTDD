@@ -64,7 +64,31 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
         }
 
+        [Fact]
+        public void Add_should_throw_exception_BadDoctorNationalCodeFormatException_if_national_format_is_wrong()
+        {
+            var dto = DoctorFactory
+                .GenerateAddDoctorDto("Dummy name", "123456789");
 
+
+            Action expected = () => _sut.Add(dto);
+
+
+            expected.Should().ThrowExactly<BadDoctorNationalCodeFormat>();
+        }
+
+        [Fact]
+        public void Add_should_throw_exception_BadDoctorNameFormatException_if_the_doctor_name_format_is_wrong()
+        {
+            var dto = DoctorFactory
+                .GenerateAddDoctorDto("123", "1234567890");
+
+
+            Action expected = () => _sut.Add(dto);
+
+
+            expected.Should().ThrowExactly<BadDoctorNameFormatException>();
+        }
     }
 
 
