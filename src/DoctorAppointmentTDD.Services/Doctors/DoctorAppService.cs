@@ -9,6 +9,9 @@ namespace DoctorAppointmentTDD.Services.Doctors
 {
     public class DoctorAppService : DoctorService
     {
-        
+        public void Add(AddDoctorDto dto)
+        {
+            
+        }
     }
 }
