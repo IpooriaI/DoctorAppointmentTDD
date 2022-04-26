@@ -32,13 +32,8 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         [Fact]
         public void Add_should_add_Doctor_properly()
         {
-            var dto = new AddDoctorDto
-            {
-                FirstName = "DummyName",
-                LastName = "DummyFamily",
-                Field = "DummyField",
-                NationalCode = "1234567890",
-            };
+            var dto = DoctorFactory
+                .GenerateAddDoctorDto("Dummy name","1234567890");
 
 
             _sut.Add(dto);
