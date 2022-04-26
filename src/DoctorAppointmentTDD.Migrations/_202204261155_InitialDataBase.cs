@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointmentTDD.Migrations
 {
+    [Migration(202204261155)]
     public class _202204261155_InitialDataBase : Migration
     {
         public override void Up()
