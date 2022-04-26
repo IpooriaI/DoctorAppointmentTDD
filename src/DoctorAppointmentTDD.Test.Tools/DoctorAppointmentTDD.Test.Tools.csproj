@@ -6,8 +6,12 @@
 
   <ItemGroup>
     <Folder Include="Appointments\" />
-    <Folder Include="Doctors\" />
     <Folder Include="Patients\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DoctorAppointmentTDD.Entities\DoctorAppointmentTDD.Entities.csproj" />
+    <ProjectReference Include="..\DoctorAppointmentTDD.Services\DoctorAppointmentTDD.Services.csproj" />
   </ItemGroup>
 
 </Project>

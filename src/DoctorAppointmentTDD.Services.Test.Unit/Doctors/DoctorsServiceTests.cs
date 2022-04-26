@@ -6,6 +6,7 @@ using DoctorAppointmentTDD.Persistence.EF.Doctors;
 using DoctorAppointmentTDD.Services.Doctors;
 using DoctorAppointmentTDD.Services.Doctors.Contracts;
 using DoctorAppointmentTDD.Services.Doctors.Exceptions;
+using DoctorAppointmentTDD.Test.Tools.Doctors;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -50,20 +51,10 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         [Fact]
         public void Add_should_throw_exception_DoctorAlreadyExistsException_if_doctor_already_exists()
         {
-            var doctor = new Doctor
-            {
-                FirstName = "TestName",
-                LastName = "TestLastName",
-                Field = "DummyField",
-                NationalCode = "1234567890"
-            };
-            var dto = new AddDoctorDto
-            {
-                FirstName = "DummyName",
-                LastName = "DummyFamily",
-                Field = "DummyField",
-                NationalCode = "1234567890",
-            };
+            var doctor = DoctorFactory
+                .GenerateDoctor("Dummy name", "1234567890");
+            var dto = DoctorFactory
+                .GenerateAddDoctorDto("Dummy name", "1234567890");
             _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
 
 
