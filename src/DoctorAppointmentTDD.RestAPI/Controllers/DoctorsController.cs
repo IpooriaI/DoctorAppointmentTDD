@@ -1,5 +1,6 @@
 ﻿using DoctorAppointmentTDD.Services.Doctors.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DoctorAppointmentTDD.RestAPI.Controllers
 {
@@ -18,6 +19,24 @@ namespace DoctorAppointmentTDD.RestAPI.Controllers
         public void Add(AddDoctorDto dto)
         {
             _service.Add(dto);
+        }
+
+        [HttpGet]
+        public List<GetDoctorDto> GetAll()
+        {
+            return _service.GetAll();
+        }
+
+        [HttpGet("{id}")]
+        public GetDoctorDto Get(int id)
+        {
+            return _service.Get(id);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(UpdateDoctorDto dto, int id)
+        {
+            _service.Update(id,dto);
         }
 
     }

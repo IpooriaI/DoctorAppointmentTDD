@@ -18,10 +18,10 @@ namespace DoctorAppointmentTDD.Persistence.EF.Doctors
             _dataContext.Doctors.Add(doctor);
         }
 
-        public bool DoesNationalCodeExist(string nationalCode)
+        public bool DoesNationalCodeExist(string nationalCode, int id)
         {
             return _dataContext.Doctors
-                .Any(_ => _.NationalCode == nationalCode);
+                .Any(_ => _.NationalCode == nationalCode && _.Id != id);
         }
 
         public GetDoctorDto Get(int id)

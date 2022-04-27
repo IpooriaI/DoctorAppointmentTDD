@@ -70,6 +70,31 @@ namespace DoctorAppointmentTDD.Services.Doctors
         {
             var doctor = _repository.GetById(id);
 
+
+            var isDoctorExist = _repository
+                .DoesNationalCodeExist(doctor.NationalCode,id);
+
+            if(dto.NationalCode.Length != 10
+                ||dto.NationalCode
+                .Any(char.IsLetter) == true)
+            {
+                throw new BadDoctorNationalCodeFormat();
+            }
+
+            if (dto.FirstName.Any(char.IsDigit) == true
+                || string.IsNullOrEmpty(dto.FirstName)
+                || dto.LastName.Any(char.IsDigit) == true
+                || string.IsNullOrEmpty(dto.LastName))
+            {
+                throw new BadDoctorNameFormatException();
+            }
+
+            if(isDoctorExist)
+            {
+                throw new DoctorAlreadyExistsException();
+            }
+
+
             doctor.FirstName = dto.FirstName;
             doctor.LastName = dto.LastName;
             doctor.NationalCode = dto.NationalCode;
