@@ -9,5 +9,7 @@ namespace DoctorAppointmentTDD.Services.Doctors.Contracts
         void Add(Doctor doctor);
         bool DoesNationalCodeExist(string nationalCode);
         List<GetDoctorDto> GetAll();
+        GetDoctorDto Get(int id);
+        Doctor GetById(int id);
     }
 }

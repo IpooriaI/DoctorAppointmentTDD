@@ -20,7 +20,21 @@ namespace DoctorAppointmentTDD.Persistence.EF.Doctors
 
         public bool DoesNationalCodeExist(string nationalCode)
         {
-            return _dataContext.Doctors.Any(_ => _.NationalCode == nationalCode);
+            return _dataContext.Doctors
+                .Any(_ => _.NationalCode == nationalCode);
+        }
+
+        public GetDoctorDto Get(int id)
+        {
+            return _dataContext.Doctors
+                .Where(_ => _.Id==id)
+                .Select(_ => new GetDoctorDto
+            {
+                FirstName = _.FirstName,
+                LastName = _.LastName,
+                Field = _.Field,
+                NationalCode = _.NationalCode
+            }).FirstOrDefault();
         }
 
         public List<GetDoctorDto> GetAll()
@@ -32,6 +46,12 @@ namespace DoctorAppointmentTDD.Persistence.EF.Doctors
                 Field = _.Field,
                 NationalCode = _.NationalCode
             }).ToList();
+        }
+
+        public Doctor GetById(int id)
+        {
+            return _dataContext.Doctors
+                .FirstOrDefault(_ => _.Id == id);
         }
     }
 }

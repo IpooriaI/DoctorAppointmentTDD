@@ -2,6 +2,7 @@
 using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Services.Doctors.Contracts;
 using DoctorAppointmentTDD.Services.Doctors.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DoctorAppointmentTDD.Services.Doctors
@@ -47,6 +48,34 @@ namespace DoctorAppointmentTDD.Services.Doctors
             }
 
             _repository.Add(doctor);
+            _unitOfWork.Commit();
+        }
+
+        public GetDoctorDto Get(int id)
+        {
+            return _repository.Get(id);
+        }
+
+        public List<GetDoctorDto> GetAll()
+        {
+            return _repository.GetAll();
+        }
+
+        public Doctor GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
+        public void Update(int id, UpdateDoctorDto dto)
+        {
+            var doctor = _repository.GetById(id);
+
+            doctor.FirstName = dto.FirstName;
+            doctor.LastName = dto.LastName;
+            doctor.NationalCode = dto.NationalCode;
+            doctor.Field = dto.Field;
+
+
             _unitOfWork.Commit();
         }
     }

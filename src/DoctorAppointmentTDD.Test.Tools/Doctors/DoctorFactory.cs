@@ -32,5 +32,18 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
                 NationalCode = nationalCode,
             };
         }
+
+        public static List<Doctor> GenerateDoctors()
+        {
+            return new List<Doctor>
+            {
+                new Doctor { FirstName = "Name1",LastName
+                = "LastName1",Field = "Field1",NationalCode="1234567890"},
+                new Doctor { FirstName = "Name2",LastName
+                = "LastName2",Field = "Field2",NationalCode="1234567891"},
+                new Doctor { FirstName = "Name3",LastName
+                = "LastName3",Field = "Field3",NationalCode="1234567892"}
+            };
+        }
     }
 }

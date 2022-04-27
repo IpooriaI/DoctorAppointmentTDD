@@ -87,16 +87,75 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         }
 
         [Fact]
-        public void GetAll_should_get_all_doctors_properly()
+        public void GetAll_returns_a_list_of_DoctorDto_properly()
         {
-            var Doctors = new List<Doctor>
-            {
-                new Doctor { FirstName = "Name1",LastName = "LastName1",Field = "Field1",NationalCode="1234567890"},
-                new Doctor { FirstName = "Name2",LastName = "LastName2",Field = "Field2",NationalCode="1234567891"},
-                new Doctor { FirstName = "Name3",LastName = "LastName3",Field = "Field3",NationalCode="1234567892"}
-            };
+            var Doctors = DoctorFactory.GenerateDoctors();
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(Doctors));
+
+            var expected = _sut.GetAll();
+
+
+            expected.Should().HaveCount(3);
+            expected.Should().Contain(_ => _.FirstName == Doctors[0].FirstName);
+            expected.Should().Contain(_ => _.FirstName == Doctors[1].FirstName);
+            expected.Should().Contain(_ => _.FirstName == Doctors[2].FirstName);
+            expected.Should().Contain(_ => _.NationalCode == Doctors[0].NationalCode);
+            expected.Should().Contain(_ => _.NationalCode == Doctors[1].NationalCode);
+            expected.Should().Contain(_ => _.NationalCode == Doctors[2].NationalCode);
         }
+
+        [Fact]
+        public void Get_returns_a_doctorDto_properly()
+        {
+            var Doctor = DoctorFactory.GenerateDoctor("TestName","1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+
+
+            var expected = _sut.Get(Doctor.Id);
+
+
+            expected.FirstName.Should().Be(Doctor.FirstName);
+            expected.NationalCode.Should().Be(Doctor.NationalCode);
+        }
+
+        [Fact]
+        public void GetById_returns_a_Doctor_properly()
+        {
+            var Doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+
+
+            var expected = _sut.GetById(Doctor.Id);
+
+
+            expected.Id.Should().Be(Doctor.Id);
+            expected.FirstName.Should().Be(Doctor.FirstName);
+            expected.NationalCode.Should().Be(Doctor.NationalCode);
+        }
+
+        [Fact]
+        public void Update_updates_the_doctor_properly()
+        {
+            var Doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+            var dto = new UpdateDoctorDto
+            {
+                FirstName = "UpdatedName",
+                LastName = "UpdatedLastName",
+                Field = "UpdatedField",
+                NationalCode = "0987654321"
+            };
+
+
+            _sut.Update(Doctor.Id, dto);
+
+
+            _dataContext.Doctors.Should().HaveCount(1);
+            _dataContext.Doctors.Should().Contain(_ => _.FirstName == dto.FirstName);
+            _dataContext.Doctors.Should().Contain(_ => _.LastName == dto.LastName);
+            _dataContext.Doctors.Should().Contain(_ => _.NationalCode == dto.NationalCode);
+        }
+
+
     }
-
-
 }
