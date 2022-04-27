@@ -12,7 +12,8 @@ namespace DoctorAppointmentTDD.Services.Patients
         private readonly PatientRepository _repository;
         private readonly UnitOfWork _unitOfWork;
 
-        public PatientAppService(PatientRepository repository, UnitOfWork unitOfWork)
+        public PatientAppService(PatientRepository repository
+            , UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -26,7 +27,8 @@ namespace DoctorAppointmentTDD.Services.Patients
                 LastName = dto.LastName,
                 NationalCode = dto.NationalCode,
             };
-            var doesPatientExist = _repository.DoesNationalCodeExist(dto.NationalCode, 0);
+            var doesPatientExist = _repository
+                .DoesNationalCodeExist(dto.NationalCode, 0);
 
 
             if (doesPatientExist)
@@ -73,7 +75,7 @@ namespace DoctorAppointmentTDD.Services.Patients
             return _repository.GetById(id);
         }
 
-        public void Update(int id,UpdatePatientDto dto)
+        public void Update(int id, UpdatePatientDto dto)
         {
             var patient = _repository.GetById(id);
 

@@ -23,22 +23,23 @@ namespace DoctorAppointmentTDD.Persistence.EF.Doctors
             _dataContext.Doctors.Remove(doctor);
         }
 
-        public bool DoesNationalCodeExist(string nationalCode,int id)
+        public bool DoesNationalCodeExist(string nationalCode, int id)
         {
-            return _dataContext.Doctors.Any(_ => _.NationalCode == nationalCode && _.Id != id);
+            return _dataContext.Doctors
+                .Any(_ => _.NationalCode == nationalCode && _.Id != id);
         }
 
         public GetDoctorDto Get(int id)
         {
             return _dataContext.Doctors
-                .Where(_ => _.Id==id)
+                .Where(_ => _.Id == id)
                 .Select(_ => new GetDoctorDto
-            {
-                FirstName = _.FirstName,
-                LastName = _.LastName,
-                Field = _.Field,
-                NationalCode = _.NationalCode
-            }).FirstOrDefault();
+                {
+                    FirstName = _.FirstName,
+                    LastName = _.LastName,
+                    Field = _.Field,
+                    NationalCode = _.NationalCode
+                }).FirstOrDefault();
         }
 
         public List<GetDoctorDto> GetAll()

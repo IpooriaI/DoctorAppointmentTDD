@@ -1,10 +1,7 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Services.Patients.Contracts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointmentTDD.Persistence.EF.Patients
 {
@@ -28,7 +25,8 @@ namespace DoctorAppointmentTDD.Persistence.EF.Patients
 
         public bool DoesNationalCodeExist(string nationalCode, int id)
         {
-            return _dataContext.Patients.Any(_ => _.NationalCode == nationalCode && _.Id != id);
+            return _dataContext.Patients
+                .Any(_ => _.NationalCode == nationalCode && _.Id != id);
         }
 
         public GetPatientDto Get(int id)

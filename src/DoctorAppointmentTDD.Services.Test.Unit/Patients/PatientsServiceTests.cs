@@ -8,10 +8,7 @@ using DoctorAppointmentTDD.Services.Patients.Exceptions;
 using DoctorAppointmentTDD.Test.Tools.Patients;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
@@ -99,18 +96,25 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
 
 
             expected.Should().HaveCount(3);
-            expected.Should().Contain(_ => _.FirstName == patients[0].FirstName);
-            expected.Should().Contain(_ => _.FirstName == patients[1].FirstName);
-            expected.Should().Contain(_ => _.FirstName == patients[2].FirstName);
-            expected.Should().Contain(_ => _.NationalCode == patients[0].NationalCode);
-            expected.Should().Contain(_ => _.NationalCode == patients[1].NationalCode);
-            expected.Should().Contain(_ => _.NationalCode == patients[2].NationalCode);
+            expected.Should()
+                .Contain(_ => _.FirstName == patients[0].FirstName);
+            expected.Should()
+                .Contain(_ => _.FirstName == patients[1].FirstName);
+            expected.Should()
+                .Contain(_ => _.FirstName == patients[2].FirstName);
+            expected.Should()
+                .Contain(_ => _.NationalCode == patients[0].NationalCode);
+            expected.Should()
+                .Contain(_ => _.NationalCode == patients[1].NationalCode);
+            expected.Should()
+                .Contain(_ => _.NationalCode == patients[2].NationalCode);
         }
 
         [Fact]
         public void Get_returns_a_GetPatientDto_properly()
         {
-            var patient = PatientFactory.GeneratePatient("TestName", "1234567890");
+            var patient = PatientFactory
+                .GeneratePatient("TestName", "1234567890");
             _dataContext.Manipulate(_ => _.Patients.Add(patient));
 
 
@@ -124,7 +128,8 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
         [Fact]
         public void GetById_returns_a_Patient_properly()
         {
-            var patient = PatientFactory.GeneratePatient("Name", "1234567890");
+            var patient = PatientFactory
+                .GeneratePatient("Name", "1234567890");
             _dataContext.Manipulate(_ => _.Patients.Add(patient));
 
 
@@ -139,7 +144,8 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
         [Fact]
         public void Update_updates_the_Patient_properly()
         {
-            var patient = PatientFactory.GeneratePatient("Name", "9876543210");
+            var patient = PatientFactory
+                .GeneratePatient("Name", "9876543210");
             _dataContext.Manipulate(_ => _.Patients.Add(patient));
             var dto = PatientFactory
                 .GenerateUpdatePatientDto("UpdatedFirstname", "0147852369");
@@ -149,9 +155,12 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
 
 
             _dataContext.Patients.Should().HaveCount(1);
-            _dataContext.Patients.Should().Contain(_ => _.FirstName == dto.FirstName);
-            _dataContext.Patients.Should().Contain(_ => _.LastName == dto.LastName);
-            _dataContext.Patients.Should().Contain(_ => _.NationalCode == dto.NationalCode);
+            _dataContext.Patients.Should()
+                .Contain(_ => _.FirstName == dto.FirstName);
+            _dataContext.Patients.Should()
+                .Contain(_ => _.LastName == dto.LastName);
+            _dataContext.Patients.Should()
+                .Contain(_ => _.NationalCode == dto.NationalCode);
         }
 
         [Fact]
@@ -179,7 +188,8 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
             var patient = PatientFactory
                 .GeneratePatient("Dummy name", "1234567890");
             var dto = PatientFactory
-                .GenerateUpdatePatientDto("UpdatedFirstname", "123456badnationalcode");
+                .GenerateUpdatePatientDto("UpdatedFirstname",
+                "123456badnationalcode");
             _dataContext.Manipulate(_ => _.Patients.AddRange(patient));
 
 

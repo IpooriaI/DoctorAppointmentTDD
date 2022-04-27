@@ -12,7 +12,8 @@ namespace DoctorAppointmentTDD.Services.Doctors
         private readonly DoctorRepository _repository;
         private readonly UnitOfWork _unitOfWork;
 
-        public DoctorAppService(DoctorRepository repository, UnitOfWork unitOfWork)
+        public DoctorAppService(DoctorRepository repository
+            ,UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -26,15 +27,16 @@ namespace DoctorAppointmentTDD.Services.Doctors
                 Field = dto.Field,
                 NationalCode = dto.NationalCode,
             };
-            var doesDoctorExist = _repository.DoesNationalCodeExist(dto.NationalCode,0);
-            
-            
-            if(doesDoctorExist)
+            var doesDoctorExist = _repository
+                .DoesNationalCodeExist(dto.NationalCode, 0);
+
+
+            if (doesDoctorExist)
             {
                 throw new DoctorAlreadyExistsException();
             }
-            if(dto.NationalCode.Length != 10
-                ||doctor.NationalCode
+            if (dto.NationalCode.Length != 10
+                || doctor.NationalCode
                 .Any(char.IsLetter) == true)
             {
                 throw new BadDoctorNationalCodeFormat();
@@ -79,10 +81,10 @@ namespace DoctorAppointmentTDD.Services.Doctors
 
 
             var isDoctorExist = _repository
-                .DoesNationalCodeExist(dto.NationalCode,id);
+                .DoesNationalCodeExist(dto.NationalCode, id);
 
-            if(dto.NationalCode.Length != 10
-                ||dto.NationalCode
+            if (dto.NationalCode.Length != 10
+                || dto.NationalCode
                 .Any(char.IsLetter) == true)
             {
                 throw new BadDoctorNationalCodeFormat();
@@ -96,7 +98,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
                 throw new BadDoctorNameFormatException();
             }
 
-            if(isDoctorExist)
+            if (isDoctorExist)
             {
                 throw new DoctorAlreadyExistsException();
             }

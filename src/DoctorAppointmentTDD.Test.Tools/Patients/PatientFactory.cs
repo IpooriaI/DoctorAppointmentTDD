@@ -1,16 +1,13 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Services.Patients.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointmentTDD.Test.Tools.Patients
 {
     public class PatientFactory
     {
-        public static Patient GeneratePatient(string firstName, string nationalCode)
+        public static Patient
+            GeneratePatient(string firstName, string nationalCode)
         {
             return new Patient
             {
@@ -20,7 +17,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Patients
             };
         }
 
-        public static AddPatientDto GenerateAddPatientDto(string firstName, string nationalCode)
+        public static AddPatientDto
+            GenerateAddPatientDto(string firstName, string nationalCode)
         {
             return new AddPatientDto
             {
@@ -30,7 +28,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Patients
             };
         }
 
-        public static UpdatePatientDto GenerateUpdatePatientDto(string firstName, string nationalCode)
+        public static UpdatePatientDto
+            GenerateUpdatePatientDto(string firstName, string nationalCode)
         {
             return new UpdatePatientDto
             {

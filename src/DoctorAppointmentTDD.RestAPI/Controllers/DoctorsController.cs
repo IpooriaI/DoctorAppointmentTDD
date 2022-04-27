@@ -36,7 +36,7 @@ namespace DoctorAppointmentTDD.RestAPI.Controllers
         [HttpPut("{id}")]
         public void Update(UpdateDoctorDto dto, int id)
         {
-            _service.Update(id,dto);
+            _service.Update(id, dto);
         }
 
     }

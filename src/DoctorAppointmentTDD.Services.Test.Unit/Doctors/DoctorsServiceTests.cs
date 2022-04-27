@@ -9,7 +9,6 @@ using DoctorAppointmentTDD.Services.Doctors.Exceptions;
 using DoctorAppointmentTDD.Test.Tools.Doctors;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -35,7 +34,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         public void Add_should_add_Doctor_properly()
         {
             var dto = DoctorFactory
-                .GenerateAddDoctorDto("Dummy name","1234567890");
+                .GenerateAddDoctorDto("Dummy name", "1234567890");
 
 
             _sut.Add(dto);
@@ -97,18 +96,25 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
 
 
             expected.Should().HaveCount(3);
-            expected.Should().Contain(_ => _.FirstName == Doctors[0].FirstName);
-            expected.Should().Contain(_ => _.FirstName == Doctors[1].FirstName);
-            expected.Should().Contain(_ => _.FirstName == Doctors[2].FirstName);
-            expected.Should().Contain(_ => _.NationalCode == Doctors[0].NationalCode);
-            expected.Should().Contain(_ => _.NationalCode == Doctors[1].NationalCode);
-            expected.Should().Contain(_ => _.NationalCode == Doctors[2].NationalCode);
+            expected.Should()
+                .Contain(_ => _.FirstName == Doctors[0].FirstName);
+            expected.Should()
+                .Contain(_ => _.FirstName == Doctors[1].FirstName);
+            expected.Should()
+                .Contain(_ => _.FirstName == Doctors[2].FirstName);
+            expected.Should()
+                .Contain(_ => _.NationalCode == Doctors[0].NationalCode);
+            expected.Should()
+                .Contain(_ => _.NationalCode == Doctors[1].NationalCode);
+            expected.Should()
+                .Contain(_ => _.NationalCode == Doctors[2].NationalCode);
         }
 
         [Fact]
         public void Get_returns_a_doctorDto_properly()
         {
-            var Doctor = DoctorFactory.GenerateDoctor("TestName","1234567890");
+            var Doctor = DoctorFactory
+                .GenerateDoctor("TestName", "1234567890");
             _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
 
 
@@ -140,16 +146,19 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var Doctor = DoctorFactory.GenerateDoctor("Name", "9876543210");
             _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
             var dto = DoctorFactory
-                .GenerateUpdateDoctorDto("UpdatedFirstname","0147852369");
+                .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
 
 
             _sut.Update(Doctor.Id, dto);
 
 
             _dataContext.Doctors.Should().HaveCount(1);
-            _dataContext.Doctors.Should().Contain(_ => _.FirstName == dto.FirstName);
-            _dataContext.Doctors.Should().Contain(_ => _.LastName == dto.LastName);
-            _dataContext.Doctors.Should().Contain(_ => _.NationalCode == dto.NationalCode);
+            _dataContext.Doctors.Should()
+                .Contain(_ => _.FirstName == dto.FirstName);
+            _dataContext.Doctors.Should()
+                .Contain(_ => _.LastName == dto.LastName);
+            _dataContext.Doctors.Should()
+                .Contain(_ => _.NationalCode == dto.NationalCode);
         }
 
         [Fact]
@@ -165,7 +174,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor2));
 
 
-            Action expected = () => _sut.Update(doctor.Id,dto);
+            Action expected = () => _sut.Update(doctor.Id, dto);
 
 
             expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
@@ -177,11 +186,12 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var doctor = DoctorFactory
                 .GenerateDoctor("Dummy name", "1234567890");
             var dto = DoctorFactory
-                .GenerateUpdateDoctorDto("UpdatedFirstname", "123456badnationalcode");
+                .GenerateUpdateDoctorDto("UpdatedFirstname",
+                "123456badnationalcode");
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
 
 
-            Action expected = () => _sut.Update(doctor.Id,dto);
+            Action expected = () => _sut.Update(doctor.Id, dto);
 
 
             expected.Should().ThrowExactly<BadDoctorNationalCodeFormat>();

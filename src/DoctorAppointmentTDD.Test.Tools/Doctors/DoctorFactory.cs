@@ -1,17 +1,14 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Services.Doctors.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointmentTDD.Test.Tools.Doctors
 {
     public static class DoctorFactory
     {
 
-        public static Doctor GenerateDoctor(string firstName,string nationalCode)
+        public static Doctor 
+            GenerateDoctor(string firstName, string nationalCode)
         {
             return new Doctor
             {
@@ -22,7 +19,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
             };
         }
 
-        public static AddDoctorDto GenerateAddDoctorDto(string firstName, string nationalCode)
+        public static AddDoctorDto 
+            GenerateAddDoctorDto(string firstName, string nationalCode)
         {
             return new AddDoctorDto
             {
@@ -33,7 +31,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
             };
         }
 
-        public static UpdateDoctorDto GenerateUpdateDoctorDto(string firstName, string nationalCode)
+        public static UpdateDoctorDto 
+            GenerateUpdateDoctorDto(string firstName, string nationalCode)
         {
             return new UpdateDoctorDto
             {

@@ -8,7 +8,8 @@ namespace DoctorAppointmentTDD.Persistence.EF
     {
 
         public EFDataContext(string connectionString) :
-            this(new DbContextOptionsBuilder().UseSqlServer(connectionString).Options)
+            this(new DbContextOptionsBuilder()
+                .UseSqlServer(connectionString).Options)
         { }
 
         public EFDataContext(DbContextOptions options) : base(options)
