@@ -26,7 +26,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
                 Field = dto.Field,
                 NationalCode = dto.NationalCode,
             };
-            var doesDoctorExist = _repository.DoesNationalCodeExist(dto.NationalCode);
+            var doesDoctorExist = _repository.DoesNationalCodeExist(dto.NationalCode,0);
             
             
             if(doesDoctorExist)
@@ -72,7 +72,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
 
 
             var isDoctorExist = _repository
-                .DoesNationalCodeExist(doctor.NationalCode,id);
+                .DoesNationalCodeExist(dto.NationalCode,id);
 
             if(dto.NationalCode.Length != 10
                 ||dto.NationalCode

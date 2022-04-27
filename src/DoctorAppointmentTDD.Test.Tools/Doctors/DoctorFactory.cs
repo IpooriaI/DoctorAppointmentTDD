@@ -33,6 +33,17 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
             };
         }
 
+        public static UpdateDoctorDto GenerateUpdateDoctorDto(string firstName, string nationalCode)
+        {
+            return new UpdateDoctorDto
+            {
+                FirstName = firstName,
+                LastName = "UpdatedFamily",
+                Field = "UpdatedField",
+                NationalCode = nationalCode,
+            };
+        }
+
         public static List<Doctor> GenerateDoctors()
         {
             return new List<Doctor>

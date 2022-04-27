@@ -136,15 +136,10 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         [Fact]
         public void Update_updates_the_doctor_properly()
         {
-            var Doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
+            var Doctor = DoctorFactory.GenerateDoctor("Name", "9876543210");
             _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
-            var dto = new UpdateDoctorDto
-            {
-                FirstName = "UpdatedName",
-                LastName = "UpdatedLastName",
-                Field = "UpdatedField",
-                NationalCode = "0987654321"
-            };
+            var dto = DoctorFactory
+                .GenerateUpdateDoctorDto("UpdatedFirstname","0147852369");
 
 
             _sut.Update(Doctor.Id, dto);
@@ -154,6 +149,57 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             _dataContext.Doctors.Should().Contain(_ => _.FirstName == dto.FirstName);
             _dataContext.Doctors.Should().Contain(_ => _.LastName == dto.LastName);
             _dataContext.Doctors.Should().Contain(_ => _.NationalCode == dto.NationalCode);
+        }
+
+        [Fact]
+        public void Update_throws_exception_DoctorAlreadyExistsException_if_doctor_already_exists()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("Dummy name", "1234567890");
+            var doctor2 = DoctorFactory
+                .GenerateDoctor("Dummy name", "1234567891");
+            var dto = DoctorFactory
+                .GenerateUpdateDoctorDto("UpdatedFirstname", "1234567891");
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor2));
+
+
+            Action expected = () => _sut.Update(doctor.Id,dto);
+
+
+            expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
+        }
+
+        [Fact]
+        public void Update_throws_exception_BadDoctorNationalCodeFormatException_if_national_format_is_wrong()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("Dummy name", "1234567890");
+            var dto = DoctorFactory
+                .GenerateUpdateDoctorDto("UpdatedFirstname", "123456badnationalcode");
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
+
+
+            Action expected = () => _sut.Update(doctor.Id,dto);
+
+
+            expected.Should().ThrowExactly<BadDoctorNationalCodeFormat>();
+        }
+
+        [Fact]
+        public void Update_throws_exception_BadDoctorNameFormatException_if_the_doctor_name_format_is_wrong()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("Dummy name", "1234567890");
+            var dto = DoctorFactory
+                .GenerateUpdateDoctorDto("badname2", "1234567898");
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
+
+
+            Action expected = () => _sut.Update(doctor.Id, dto);
+
+
+            expected.Should().ThrowExactly<BadDoctorNameFormatException>();
         }
 
 
