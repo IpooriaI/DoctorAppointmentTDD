@@ -85,14 +85,14 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
         //        .FirstOrDefault(_ => _.Id == id);
         //}
 
-        //public int GetCount(int id, DateTime date)
-        //{
-        //    var appointments = _appointments
-        //        .Where(_ => _.DoctorId == id && _.Date.Date
-        //        == date.Date)
-        //        .ToList().Count;
+        public int GetCount(int id, DateTime date)
+        {
+            var appointments = _dataContext.Appointments
+                .Where(_ => _.DoctorId == id && _.Date.Date
+                == date.Date)
+                .ToList().Count;
 
-        //    return appointments;
-        //}
+            return appointments;
+        }
     }
 }

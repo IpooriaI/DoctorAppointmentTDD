@@ -1,6 +1,7 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Services.Appointments.Contracts;
+using DoctorAppointmentTDD.Services.Appointments.Exceptions;
 
 namespace DoctorAppointmentTDD.Services.Appointments
 {
@@ -25,8 +26,8 @@ namespace DoctorAppointmentTDD.Services.Appointments
                 PatientId = dto.PatientId
             };
 
-            //var TodayAppointments = _repository
-            //    .GetCount(dto.DoctorId, dto.Date);
+            var TodayAppointments = _repository
+                .GetCount(dto.DoctorId, dto.Date);
 
             //var duplicateAppointment = _repository
             //    .CheckDuplicate(appointment);
@@ -36,10 +37,10 @@ namespace DoctorAppointmentTDD.Services.Appointments
             //    throw new DuplicateAppointmentException();
             //}
 
-            //if (TodayAppointments >= 5)
-            //{
-            //    throw new FullVisitTimeException();
-            //}
+            if (TodayAppointments >= 5)
+            {
+                throw new VisitTimeIsFullException();
+            }
 
 
             _repository.Add(appointment);

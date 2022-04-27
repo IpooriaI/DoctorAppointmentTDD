@@ -12,7 +12,7 @@ namespace DoctorAppointmentTDD.Services.Appointments.Contracts
         //GetAppointmentWithDoctorAndPatientDto Get(int id);
         //Appointment GetById(int id);
         //void Delete(Appointment appointment);
-        //int GetCount(int id, DateTime date);
+        int GetCount(int id, DateTime date);
         bool CheckDuplicate(Appointment appointment);
     }
 }
