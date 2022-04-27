@@ -56,5 +56,15 @@ namespace DoctorAppointmentTDD.Services.Appointments
         {
             return _repository.GetAll();
         }
+        public void Update(int id, UpdateAppointmentDto dto)
+        {
+            var appointment = _repository.GetById(id);
+
+            appointment.Date = dto.Date;
+            appointment.PatientId = dto.PatientId;
+            appointment.DoctorId = dto.DoctorId;
+
+            _unitOfWork.Commit();
+        }
     }
 }

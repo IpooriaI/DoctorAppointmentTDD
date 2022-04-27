@@ -10,7 +10,7 @@ namespace DoctorAppointmentTDD.Services.Appointments.Contracts
         void Add(Appointment appointment);
         List<GetAppointmentWithDoctorAndPatientDto> GetAll();
         GetAppointmentWithDoctorAndPatientDto Get(int id);
-        //Appointment GetById(int id);
+        Appointment GetById(int id);
         //void Delete(Appointment appointment);
         int GetCount(int id, DateTime date);
         bool CheckDuplicate(Appointment appointment);

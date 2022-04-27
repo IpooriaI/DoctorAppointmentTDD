@@ -85,11 +85,11 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
                 }).ToList();
         }
 
-        //public Appointment GetById(int id)
-        //{
-        //    return _appointments
-        //        .FirstOrDefault(_ => _.Id == id);
-        //}
+        public Appointment GetById(int id)
+        {
+            return _dataContext.Appointments
+                .FirstOrDefault(_ => _.Id == id);
+        }
 
         public int GetCount(int id, DateTime date)
         {

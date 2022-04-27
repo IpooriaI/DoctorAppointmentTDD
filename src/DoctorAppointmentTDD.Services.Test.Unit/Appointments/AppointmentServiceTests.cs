@@ -165,5 +165,36 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
             expected.Should().Contain(_ => _.PatientId == patients[0].Id);
             expected.Should().Contain(_ => _.PatientId == patients[1].Id);
         }
+
+        [Fact]
+        public void Update_updates_the_Appointment_properly()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName","1234567890");
+            var dtoDoctor = DoctorFactory
+                .GenerateDoctor("UpdatedName", "12345678888");
+            var patient = PatientFactory
+                .GeneratePatient("TestName","1234567899");
+            var dtoPatient = PatientFactory
+                .GeneratePatient("TestName","1234567899");
+            _dataContext
+                .Manipulate(_ => _.Doctors.AddRange(doctor,dtoDoctor));
+            _dataContext
+                .Manipulate(_ => _.Patients.AddRange(patient,dtoPatient));
+            var appointment = AppointmentFactory
+                .GenerateAppointment(doctor.Id,patient.Id);
+            _dataContext.Manipulate(_ => _.Appointments.Add(appointment));
+            var dto = AppointmentFactory
+                .GenerateUpdateAppointmentDto(dtoDoctor.Id,dtoPatient.Id);
+
+
+            _sut.Update(appointment.Id, dto);
+
+
+            _dataContext.Appointments.Should()
+                .Contain(_ => _.PatientId == dto.PatientId);
+        }
+
+
     }
 }

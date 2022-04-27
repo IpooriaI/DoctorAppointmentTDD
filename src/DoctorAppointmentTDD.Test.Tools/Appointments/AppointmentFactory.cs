@@ -32,5 +32,15 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
             };
         }
 
-    }
+        public static UpdateAppointmentDto
+            GenerateUpdateAppointmentDto(int doctorId, int patientId)
+        {
+            return new UpdateAppointmentDto
+            {
+                Date = DateTime.Now.Date,
+                DoctorId = doctorId,
+                PatientId = patientId
+            };
+        }
+}
 }
