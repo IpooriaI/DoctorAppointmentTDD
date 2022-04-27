@@ -1,5 +1,4 @@
-﻿using DoctorAppointmentTDD.Entities;
-using DoctorAppointmentTDD.Infrastructure.Application;
+﻿using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Infrastructure.Tests;
 using DoctorAppointmentTDD.Persistence.EF;
 using DoctorAppointmentTDD.Persistence.EF.Doctors;

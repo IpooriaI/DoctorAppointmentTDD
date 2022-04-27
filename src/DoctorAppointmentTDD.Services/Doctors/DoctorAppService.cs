@@ -13,7 +13,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
         private readonly UnitOfWork _unitOfWork;
 
         public DoctorAppService(DoctorRepository repository
-            ,UnitOfWork unitOfWork)
+            , UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -57,7 +57,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
         {
             var doctor = _repository.GetById(id);
 
-            if(doctor == null)
+            if (doctor == null)
             {
                 throw new DoctorDosntExistException();
             }
@@ -89,7 +89,7 @@ namespace DoctorAppointmentTDD.Services.Doctors
             var isDoctorExist = _repository
                 .DoesNationalCodeExist(dto.NationalCode, id);
 
-            if(doctor == null)
+            if (doctor == null)
             {
                 throw new DoctorDosntExistException();
             }

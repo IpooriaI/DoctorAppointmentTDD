@@ -57,7 +57,7 @@ namespace DoctorAppointmentTDD.Services.Patients
         {
             var patient = _repository.GetById(id);
 
-            if(patient == null)
+            if (patient == null)
             {
                 throw new PatientDosntExistException();
             }
@@ -87,8 +87,8 @@ namespace DoctorAppointmentTDD.Services.Patients
 
             var isPatientExist = _repository
                 .DoesNationalCodeExist(dto.NationalCode, id);
-            
-            if(patient == null)
+
+            if (patient == null)
             {
                 throw new PatientDosntExistException();
             }

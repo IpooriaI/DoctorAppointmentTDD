@@ -5,8 +5,6 @@ using DoctorAppointmentTDD.Services.Patients.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointmentTDD.Persistence.EF.Appointments
 {
@@ -67,7 +65,7 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
                 .Select(_ => new GetAppointmentWithDoctorAndPatientDto
                 {
                     Date = _.Date,
-                    DoctorId= _.DoctorId,
+                    DoctorId = _.DoctorId,
                     Doctor = new GetDoctorDto
                     {
                         FirstName = _.Doctor.FirstName,
@@ -75,7 +73,7 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
                         NationalCode = _.Doctor.NationalCode,
                         Field = _.Doctor.Field
                     },
-                    PatientId= _.PatientId,
+                    PatientId = _.PatientId,
                     Patient = new GetPatientDto
                     {
                         FirstName = _.Patient.FirstName,

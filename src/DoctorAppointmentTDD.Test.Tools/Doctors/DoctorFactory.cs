@@ -7,7 +7,7 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
     public static class DoctorFactory
     {
 
-        public static Doctor 
+        public static Doctor
             GenerateDoctor(string firstName, string nationalCode)
         {
             return new Doctor
@@ -19,7 +19,7 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
             };
         }
 
-        public static AddDoctorDto 
+        public static AddDoctorDto
             GenerateAddDoctorDto(string firstName, string nationalCode)
         {
             return new AddDoctorDto
@@ -31,7 +31,7 @@ namespace DoctorAppointmentTDD.Test.Tools.Doctors
             };
         }
 
-        public static UpdateDoctorDto 
+        public static UpdateDoctorDto
             GenerateUpdateDoctorDto(string firstName, string nationalCode)
         {
             return new UpdateDoctorDto

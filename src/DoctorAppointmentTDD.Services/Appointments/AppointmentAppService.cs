@@ -61,7 +61,7 @@ namespace DoctorAppointmentTDD.Services.Appointments
         {
             var appointment = _repository.GetById(id);
 
-            if(appointment == null)
+            if (appointment == null)
             {
                 throw new AppointmentDosntExistException();
             }

@@ -1,5 +1,4 @@
-﻿using DoctorAppointmentTDD.Entities;
-using DoctorAppointmentTDD.Infrastructure.Application;
+﻿using DoctorAppointmentTDD.Infrastructure.Application;
 using System.Collections.Generic;
 
 namespace DoctorAppointmentTDD.Services.Appointments.Contracts

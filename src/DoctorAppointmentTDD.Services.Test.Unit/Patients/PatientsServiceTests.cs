@@ -170,7 +170,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
                 .GenerateUpdatePatientDto("UpdatedFirstname", "0147852369");
             var fakePatientId = 20;
 
-            Action expected = () => _sut.Update(fakePatientId,dto);
+            Action expected = () => _sut.Update(fakePatientId, dto);
 
             expected.Should().ThrowExactly<PatientDosntExistException>();
         }
