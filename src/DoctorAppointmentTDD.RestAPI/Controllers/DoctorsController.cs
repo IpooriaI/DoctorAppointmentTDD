@@ -39,5 +39,10 @@ namespace DoctorAppointmentTDD.RestAPI.Controllers
             _service.Update(id, dto);
         }
 
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _service.Delete(id);
+        }
     }
 }
