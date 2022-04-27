@@ -89,67 +89,68 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         [Fact]
         public void GetAll_returns_a_list_of_DoctorDto_properly()
         {
-            var Doctors = DoctorFactory.GenerateDoctors();
-            _dataContext.Manipulate(_ => _.Doctors.AddRange(Doctors));
+            var doctors = DoctorFactory.GenerateDoctors();
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(doctors));
+
 
             var expected = _sut.GetAll();
 
 
             expected.Should().HaveCount(3);
             expected.Should()
-                .Contain(_ => _.FirstName == Doctors[0].FirstName);
+                .Contain(_ => _.FirstName == doctors[0].FirstName);
             expected.Should()
-                .Contain(_ => _.FirstName == Doctors[1].FirstName);
+                .Contain(_ => _.FirstName == doctors[1].FirstName);
             expected.Should()
-                .Contain(_ => _.FirstName == Doctors[2].FirstName);
+                .Contain(_ => _.FirstName == doctors[2].FirstName);
             expected.Should()
-                .Contain(_ => _.NationalCode == Doctors[0].NationalCode);
+                .Contain(_ => _.NationalCode == doctors[0].NationalCode);
             expected.Should()
-                .Contain(_ => _.NationalCode == Doctors[1].NationalCode);
+                .Contain(_ => _.NationalCode == doctors[1].NationalCode);
             expected.Should()
-                .Contain(_ => _.NationalCode == Doctors[2].NationalCode);
+                .Contain(_ => _.NationalCode == doctors[2].NationalCode);
         }
 
         [Fact]
         public void Get_returns_a_doctorDto_properly()
         {
-            var Doctor = DoctorFactory
+            var doctor = DoctorFactory
                 .GenerateDoctor("TestName", "1234567890");
-            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
 
 
-            var expected = _sut.Get(Doctor.Id);
+            var expected = _sut.Get(doctor.Id);
 
 
-            expected.FirstName.Should().Be(Doctor.FirstName);
-            expected.NationalCode.Should().Be(Doctor.NationalCode);
+            expected.FirstName.Should().Be(doctor.FirstName);
+            expected.NationalCode.Should().Be(doctor.NationalCode);
         }
 
         [Fact]
         public void GetById_returns_a_Doctor_properly()
         {
-            var Doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
-            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+            var doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
 
 
-            var expected = _sut.GetById(Doctor.Id);
+            var expected = _sut.GetById(doctor.Id);
 
 
-            expected.Id.Should().Be(Doctor.Id);
-            expected.FirstName.Should().Be(Doctor.FirstName);
-            expected.NationalCode.Should().Be(Doctor.NationalCode);
+            expected.Id.Should().Be(doctor.Id);
+            expected.FirstName.Should().Be(doctor.FirstName);
+            expected.NationalCode.Should().Be(doctor.NationalCode);
         }
 
         [Fact]
         public void Update_updates_the_doctor_properly()
         {
-            var Doctor = DoctorFactory.GenerateDoctor("Name", "9876543210");
-            _dataContext.Manipulate(_ => _.Doctors.Add(Doctor));
+            var doctor = DoctorFactory.GenerateDoctor("Name", "9876543210");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
             var dto = DoctorFactory
                 .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
 
 
-            _sut.Update(Doctor.Id, dto);
+            _sut.Update(doctor.Id, dto);
 
 
             _dataContext.Doctors.Should().HaveCount(1);
@@ -168,7 +169,9 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
             var fakeDoctorId = 20;
 
+
             Action expected = () => _sut.Update(fakeDoctorId, dto);
+
 
             expected.Should().ThrowExactly<DoctorDosntExistException>();
         }
@@ -232,7 +235,9 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             _dataContext.Manipulate(_ => _.Doctors.AddRange(Doctors));
             Doctors.Should().HaveCount(3);
 
+
             _sut.Delete(Doctors[0].Id);
+
 
             Doctors = _dataContext.Doctors.ToList();
             Doctors.Should().HaveCount(2);
@@ -243,7 +248,9 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         {
             var fakeAppointmentId = 20;
 
+
             Action expected = () => _sut.Delete(fakeAppointmentId);
+
 
             expected.Should().ThrowExactly<DoctorDosntExistException>();
         }
