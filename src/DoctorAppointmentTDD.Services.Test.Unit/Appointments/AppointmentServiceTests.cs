@@ -129,5 +129,41 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
             expected.PatientId.Should().Be(appointment.PatientId);
             expected.DoctorId.Should().Be(appointment.DoctorId);
         }
+
+        [Fact]
+        public void GetAll_returns_list_of_appointments_and_its_patients_and_doctors_properly()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName", "1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
+            var patients = PatientFactory
+                .GeneratePatients();
+            patients.AddRange(PatientFactory.GeneratePatients());
+            _dataContext.Manipulate(_ => _.Patients.AddRange(patients));
+            var appointments = new List<Appointment>
+            {
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[0].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[1].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[2].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[3].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[4].Id,Date=DateTime.Now.Date,},
+            };
+            _dataContext
+                .Manipulate(_ => _.Appointments.AddRange(appointments));
+
+
+            var expected = _sut.GetAll();
+
+
+            expected.Should().HaveCount(5);
+            expected.Should().Contain(_ => _.DoctorId == doctor.Id);
+            expected.Should().Contain(_ => _.PatientId == patients[0].Id);
+            expected.Should().Contain(_ => _.PatientId == patients[1].Id);
+        }
     }
 }

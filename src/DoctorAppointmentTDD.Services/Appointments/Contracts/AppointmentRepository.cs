@@ -8,7 +8,7 @@ namespace DoctorAppointmentTDD.Services.Appointments.Contracts
     public interface AppointmentRepository : Repository
     {
         void Add(Appointment appointment);
-        //List<GetAppointmentWithDoctorAndPatientDto> GetAll();
+        List<GetAppointmentWithDoctorAndPatientDto> GetAll();
         GetAppointmentWithDoctorAndPatientDto Get(int id);
         //Appointment GetById(int id);
         //void Delete(Appointment appointment);

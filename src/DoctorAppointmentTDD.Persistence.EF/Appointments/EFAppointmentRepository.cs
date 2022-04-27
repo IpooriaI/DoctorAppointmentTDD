@@ -61,27 +61,29 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
                 }).FirstOrDefault();
         }
 
-        //public List<GetAppointmentWithDoctorAndPatientDto> GetAll()
-        //{
-        //    return _appointments
-        //        .Select(_ => new GetAppointmentWithDoctorAndPatientDto
-        //        {
-        //            Date = _.Date,
-        //            Doctor = new GetDoctorDto
-        //            {
-        //                FirstName = _.Doctor.FirstName,
-        //                LastName = _.Doctor.LastName,
-        //                NationalCode = _.Doctor.NationalCode,
-        //                Field = _.Doctor.Field
-        //            },
-        //            Patient = new GetPatientDto
-        //            {
-        //                FirstName = _.Patient.FirstName,
-        //                LastName = _.Patient.LastName,
-        //                NationalCode = _.Patient.LastName
-        //            }
-        //        }).ToList();
-        //}
+        public List<GetAppointmentWithDoctorAndPatientDto> GetAll()
+        {
+            return _dataContext.Appointments
+                .Select(_ => new GetAppointmentWithDoctorAndPatientDto
+                {
+                    Date = _.Date,
+                    DoctorId= _.DoctorId,
+                    Doctor = new GetDoctorDto
+                    {
+                        FirstName = _.Doctor.FirstName,
+                        LastName = _.Doctor.LastName,
+                        NationalCode = _.Doctor.NationalCode,
+                        Field = _.Doctor.Field
+                    },
+                    PatientId= _.PatientId,
+                    Patient = new GetPatientDto
+                    {
+                        FirstName = _.Patient.FirstName,
+                        LastName = _.Patient.LastName,
+                        NationalCode = _.Patient.LastName
+                    }
+                }).ToList();
+        }
 
         //public Appointment GetById(int id)
         //{

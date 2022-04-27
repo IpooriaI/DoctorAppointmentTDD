@@ -2,6 +2,7 @@
 using DoctorAppointmentTDD.Infrastructure.Application;
 using DoctorAppointmentTDD.Services.Appointments.Contracts;
 using DoctorAppointmentTDD.Services.Appointments.Exceptions;
+using System.Collections.Generic;
 
 namespace DoctorAppointmentTDD.Services.Appointments
 {
@@ -50,6 +51,10 @@ namespace DoctorAppointmentTDD.Services.Appointments
         public GetAppointmentWithDoctorAndPatientDto Get(int id)
         {
             return _repository.Get(id);
+        }
+        public List<GetAppointmentWithDoctorAndPatientDto> GetAll()
+        {
+            return _repository.GetAll();
         }
     }
 }
