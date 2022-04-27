@@ -209,8 +209,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
             _sut.Delete(appointments[0].Id);
 
 
-            _dataContext.Appointments.Count().Should()
-                .NotBe(2);
+            _dataContext.Appointments.Count().Should().Be(1);
             _dataContext.Appointments.Should()
                 .NotContain(_ => _.Id == appointments[0].Id);
         }
