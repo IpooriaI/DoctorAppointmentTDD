@@ -47,5 +47,9 @@ namespace DoctorAppointmentTDD.Services.Appointments
             _unitOfWork.Commit();
         }
 
+        public GetAppointmentWithDoctorAndPatientDto Get(int id)
+        {
+            return _repository.Get(id);
+        }
     }
 }

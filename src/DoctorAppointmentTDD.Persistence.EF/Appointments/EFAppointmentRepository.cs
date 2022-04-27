@@ -1,5 +1,7 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Services.Appointments.Contracts;
+using DoctorAppointmentTDD.Services.Doctors.Contracts;
+using DoctorAppointmentTDD.Services.Patients.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,28 +36,30 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
         //    _appointments.Remove(appointment);
         //}
 
-        //public GetAppointmentWithDoctorAndPatientDto Get(int id)
-        //{
-        //    return _appointments
-        //        .Where(_ => _.Id == id)
-        //        .Select(_ => new GetAppointmentWithDoctorAndPatientDto
-        //        {
-        //            Date = _.Date,
-        //            Doctor = new GetDoctorDto
-        //            {
-        //                FirstName = _.Doctor.FirstName,
-        //                LastName = _.Doctor.LastName,
-        //                NationalCode = _.Doctor.NationalCode,
-        //                Field = _.Doctor.Field
-        //            },
-        //            Patient = new GetPatientDto
-        //            {
-        //                FirstName = _.Patient.FirstName,
-        //                LastName = _.Patient.LastName,
-        //                NationalCode = _.Patient.LastName
-        //            }
-        //        }).FirstOrDefault();
-        //}
+        public GetAppointmentWithDoctorAndPatientDto Get(int id)
+        {
+            return _dataContext.Appointments
+                .Where(_ => _.Id == id)
+                .Select(_ => new GetAppointmentWithDoctorAndPatientDto
+                {
+                    Date = _.Date,
+                    DoctorId = _.DoctorId,
+                    Doctor = new GetDoctorDto
+                    {
+                        FirstName = _.Doctor.FirstName,
+                        LastName = _.Doctor.LastName,
+                        NationalCode = _.Doctor.NationalCode,
+                        Field = _.Doctor.Field
+                    },
+                    PatientId = _.PatientId,
+                    Patient = new GetPatientDto
+                    {
+                        FirstName = _.Patient.FirstName,
+                        LastName = _.Patient.LastName,
+                        NationalCode = _.Patient.LastName
+                    }
+                }).FirstOrDefault();
+        }
 
         //public List<GetAppointmentWithDoctorAndPatientDto> GetAll()
         //{

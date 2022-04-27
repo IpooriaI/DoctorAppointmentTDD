@@ -107,5 +107,27 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
 
             expected.Should().ThrowExactly<DuplicateAppointmentException>();
         }
+
+        [Fact]
+        public void Get_returns_a_appointment_and_its_patient_and_doctor_properly()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName","1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
+            var patient = PatientFactory
+                .GeneratePatient("TestName","1234567899");
+            _dataContext.Manipulate(_ => _.Patients.Add(patient));
+            var appointment = AppointmentFactory
+                .GenerateAppointment(doctor.Id,patient.Id);
+            _dataContext.Manipulate(_ => _.Appointments.Add(appointment));
+
+
+            var expected = _sut.Get(appointment.Id);
+
+
+            expected.Date.Should().Be(appointment.Date.Date);
+            expected.PatientId.Should().Be(appointment.PatientId);
+            expected.DoctorId.Should().Be(appointment.DoctorId);
+        }
     }
 }
