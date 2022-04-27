@@ -29,13 +29,13 @@ namespace DoctorAppointmentTDD.Services.Appointments
             var TodayAppointments = _repository
                 .GetCount(dto.DoctorId, dto.Date);
 
-            //var duplicateAppointment = _repository
-            //    .CheckDuplicate(appointment);
+            var duplicateAppointment = _repository
+                .CheckDuplicate(appointment);
 
-            //if (duplicateAppointment == true)
-            //{
-            //    throw new DuplicateAppointmentException();
-            //}
+            if (duplicateAppointment == true)
+            {
+                throw new DuplicateAppointmentException();
+            }
 
             if (TodayAppointments >= 5)
             {

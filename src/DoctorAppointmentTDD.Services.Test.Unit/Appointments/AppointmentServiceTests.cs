@@ -87,5 +87,25 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
             expected.Should().ThrowExactly<VisitTimeIsFullException>();
         }
 
+        [Fact]
+        public void Add_throws_exception_DuplicateAppointmentException_if_this_appointment_already_exists_today()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName","1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
+            var patient = PatientFactory
+                .GeneratePatient("TestName","1234567899");
+            _dataContext.Manipulate(_ => _.Patients.Add(patient));
+            var appointment = AppointmentFactory
+                .GenerateAppointment(doctor.Id,patient.Id);
+            _dataContext.Manipulate(_ => _.Appointments.Add(appointment));
+            var dto = AppointmentFactory
+                .GenerateAddAppointmentDto(appointment.DoctorId,
+                appointment.PatientId);
+
+            Action expected = () => _sut.Add(dto);
+
+            expected.Should().ThrowExactly<DuplicateAppointmentException>();
+        }
     }
 }

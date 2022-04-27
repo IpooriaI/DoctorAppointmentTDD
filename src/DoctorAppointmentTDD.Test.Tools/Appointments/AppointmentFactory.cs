@@ -20,5 +20,17 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
                 PatientId = patientId
             };
         }
+
+        public static Appointment
+            GenerateAppointment(int doctorId, int patientId)
+        {
+            return new Appointment
+            {
+                Date = DateTime.Now.Date,
+                DoctorId = doctorId,
+                PatientId = patientId
+            };
+        }
+
     }
 }
