@@ -115,12 +115,18 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
 
 
             expected.Should().HaveCount(3);
-            expected.Should().Contain(_ => _.DoctorId == appointments[0].DoctorId);
-            expected.Should().Contain(_ => _.PatientId == appointments[0].PatientId);
-            expected.Should().Contain(_ => _.DoctorId == appointments[1].DoctorId);
-            expected.Should().Contain(_ => _.PatientId == appointments[1].PatientId);
-            expected.Should().Contain(_ => _.DoctorId == appointments[2].DoctorId);
-            expected.Should().Contain(_ => _.PatientId == appointments[2].PatientId);
+            expected.Should()
+                .Contain(_ => _.DoctorId == appointments[0].DoctorId);
+            expected.Should()
+                .Contain(_ => _.PatientId == appointments[0].PatientId);
+            expected.Should()
+                .Contain(_ => _.DoctorId == appointments[1].DoctorId);
+            expected.Should()
+                .Contain(_ => _.PatientId == appointments[1].PatientId);
+            expected.Should()
+                .Contain(_ => _.DoctorId == appointments[2].DoctorId);
+            expected.Should()
+                .Contain(_ => _.PatientId == appointments[2].PatientId);
         }
 
         [Fact]
@@ -170,8 +176,8 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
             var appointment = AppointmentFactory
                 .GenerateAppointment("1234567654", "DummyName");
             _dataContext.Manipulate(_ => _.Appointments.Add(appointment));
-            var dto = AppointmentFactory.GenerateUpdateAppointmentDto(
-                appointments[0].DoctorId, appointment.PatientId);
+            var dto = AppointmentFactory.GenerateUpdateAppointmentDto
+                (appointments[0].DoctorId, appointment.PatientId);
 
 
             Action expected = () => _sut.Update(appointment.Id, dto);

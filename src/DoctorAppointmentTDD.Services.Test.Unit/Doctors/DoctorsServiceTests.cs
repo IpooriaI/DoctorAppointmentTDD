@@ -35,9 +35,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var dto = DoctorFactory
                 .GenerateAddDoctorDto("Dummy name", "1234567890");
 
-
             _sut.Add(dto);
-
 
             _dataContext.Doctors.Should()
                 .Contain(_ => _.FirstName == dto.FirstName);
@@ -52,9 +50,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 .GenerateAddDoctorDto("Dummy name", "1234567890");
             _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
 
-
             Action expected = () => _sut.Add(dto);
-
 
             expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
         }
@@ -78,9 +74,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var dto = DoctorFactory
                 .GenerateAddDoctorDto("123", "1234567890");
 
-
             Action expected = () => _sut.Add(dto);
-
 
             expected.Should().ThrowExactly<BadDoctorNameFormatException>();
         }
@@ -91,9 +85,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var doctors = DoctorFactory.GenerateDoctors();
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctors));
 
-
             var expected = _sut.GetAll();
-
 
             expected.Should().HaveCount(3);
             expected.Should()
@@ -131,9 +123,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var doctor = DoctorFactory.GenerateDoctor("Name", "1234567890");
             _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
 
-
             var expected = _sut.GetById(doctor.Id);
-
 
             expected.Id.Should().Be(doctor.Id);
             expected.FirstName.Should().Be(doctor.FirstName);
@@ -148,9 +138,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             var dto = DoctorFactory
                 .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
 
-
             _sut.Update(doctor.Id, dto);
-
 
             _dataContext.Doctors.Should().HaveCount(1);
             _dataContext.Doctors.Should()
@@ -168,9 +156,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
             var fakeDoctorId = 20;
 
-
             Action expected = () => _sut.Update(fakeDoctorId, dto);
-
 
             expected.Should().ThrowExactly<DoctorDosntExistException>();
         }
@@ -187,9 +173,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor2));
 
-
             Action expected = () => _sut.Update(doctor.Id, dto);
-
 
             expected.Should().ThrowExactly<DoctorAlreadyExistsException>();
         }
@@ -204,9 +188,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 "123456badnationalcode");
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
 
-
             Action expected = () => _sut.Update(doctor.Id, dto);
-
 
             expected.Should().ThrowExactly<BadDoctorNationalCodeFormat>();
         }
@@ -220,9 +202,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
                 .GenerateUpdateDoctorDto("badname2", "1234567898");
             _dataContext.Manipulate(_ => _.Doctors.AddRange(doctor));
 
-
             Action expected = () => _sut.Update(doctor.Id, dto);
-
 
             expected.Should().ThrowExactly<BadDoctorNameFormatException>();
         }
@@ -234,9 +214,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             _dataContext.Manipulate(_ => _.Doctors.AddRange(Doctors));
             Doctors.Should().HaveCount(3);
 
-
             _sut.Delete(Doctors[0].Id);
-
 
             Doctors = _dataContext.Doctors.ToList();
             Doctors.Should().HaveCount(2);
@@ -247,9 +225,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         {
             var fakeAppointmentId = 20;
 
-
             Action expected = () => _sut.Delete(fakeAppointmentId);
-
 
             expected.Should().ThrowExactly<DoctorDosntExistException>();
         }

@@ -7,8 +7,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
 {
     public static class AppointmentFactory
     {
-        public static AddAppointmentDto
-            GenerateAddAppointmentDto(int doctorId, int patientId)
+        public static AddAppointmentDto GenerateAddAppointmentDto
+            (int doctorId, int patientId)
         {
             return new AddAppointmentDto
             {
@@ -18,9 +18,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
             };
         }
 
-        public static Appointment
-            GenerateAppointment(string doctorNationalCode
-            , string DoctorName)
+        public static Appointment GenerateAppointment
+            (string doctorNationalCode,string DoctorName)   
         {
             return new Appointment
             {
@@ -41,8 +40,8 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
             };
         }
 
-        public static UpdateAppointmentDto
-            GenerateUpdateAppointmentDto(int doctorId, int patientId)
+        public static UpdateAppointmentDto GenerateUpdateAppointmentDto
+            (int doctorId, int patientId)
         {
             return new UpdateAppointmentDto
             {
@@ -52,8 +51,7 @@ namespace DoctorAppointmentTDD.Test.Tools.Appointments
             };
         }
 
-        public static List<Appointment>
-            GenerateAppointments(int count)
+        public static List<Appointment> GenerateAppointments(int count)
         {
             var appointments = new List<Appointment>
             {
