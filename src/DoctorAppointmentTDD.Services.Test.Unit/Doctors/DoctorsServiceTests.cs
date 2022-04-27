@@ -9,6 +9,7 @@ using DoctorAppointmentTDD.Services.Doctors.Exceptions;
 using DoctorAppointmentTDD.Test.Tools.Doctors;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
@@ -83,6 +84,17 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
 
 
             expected.Should().ThrowExactly<BadDoctorNameFormatException>();
+        }
+
+        [Fact]
+        public void GetAll_should_get_all_doctors_properly()
+        {
+            var Doctors = new List<Doctor>
+            {
+                new Doctor { FirstName = "Name1",LastName = "LastName1",Field = "Field1",NationalCode="1234567890"},
+                new Doctor { FirstName = "Name2",LastName = "LastName2",Field = "Field2",NationalCode="1234567891"},
+                new Doctor { FirstName = "Name3",LastName = "LastName3",Field = "Field3",NationalCode="1234567892"}
+            };
         }
     }
 

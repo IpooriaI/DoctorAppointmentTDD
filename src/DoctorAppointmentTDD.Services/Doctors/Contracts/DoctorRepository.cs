@@ -1,5 +1,6 @@
 ﻿using DoctorAppointmentTDD.Entities;
 using DoctorAppointmentTDD.Infrastructure.Application;
+using System.Collections.Generic;
 
 namespace DoctorAppointmentTDD.Services.Doctors.Contracts
 {
@@ -7,5 +8,6 @@ namespace DoctorAppointmentTDD.Services.Doctors.Contracts
     {
         void Add(Doctor doctor);
         bool DoesNationalCodeExist(string nationalCode);
+        List<GetDoctorDto> GetAll();
     }
 }

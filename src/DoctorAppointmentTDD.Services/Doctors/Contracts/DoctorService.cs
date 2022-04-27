@@ -5,5 +5,6 @@ namespace DoctorAppointmentTDD.Services.Doctors.Contracts
     public interface DoctorService : Service
     {
         void Add(AddDoctorDto dto);
+        object GetAll();
     }
 }
