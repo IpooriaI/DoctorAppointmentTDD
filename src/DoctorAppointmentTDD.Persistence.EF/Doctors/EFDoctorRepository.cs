@@ -18,6 +18,11 @@ namespace DoctorAppointmentTDD.Persistence.EF.Doctors
             _dataContext.Doctors.Add(doctor);
         }
 
+        public void Delete(Doctor doctor)
+        {
+            _dataContext.Doctors.Remove(doctor);
+        }
+
         public bool DoesNationalCodeExist(string nationalCode,int id)
         {
             return _dataContext.Doctors.Any(_ => _.NationalCode == nationalCode && _.Id != id);

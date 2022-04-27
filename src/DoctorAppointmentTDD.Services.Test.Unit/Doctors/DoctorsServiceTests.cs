@@ -10,6 +10,7 @@ using DoctorAppointmentTDD.Test.Tools.Doctors;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
@@ -202,6 +203,17 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
             expected.Should().ThrowExactly<BadDoctorNameFormatException>();
         }
 
+        [Fact]
+        public void Delete_deletes_the_doctor_properly()
+        {
+            var Doctors = DoctorFactory.GenerateDoctors();
+            _dataContext.Manipulate(_ => _.Doctors.AddRange(Doctors));
+            Doctors.Should().HaveCount(3);
 
+            _sut.Delete(Doctors[0].Id);
+
+            Doctors = _dataContext.Doctors.ToList();
+            Doctors.Should().HaveCount(2);
+        }
     }
 }

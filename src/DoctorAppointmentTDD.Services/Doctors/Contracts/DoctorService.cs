@@ -11,5 +11,6 @@ namespace DoctorAppointmentTDD.Services.Doctors.Contracts
         GetDoctorDto Get(int id);
         void Update(int id, UpdateDoctorDto dto);
         Doctor GetById(int id);
+        void Delete(int id);
     }
 }

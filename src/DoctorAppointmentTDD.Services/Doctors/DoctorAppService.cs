@@ -51,6 +51,13 @@ namespace DoctorAppointmentTDD.Services.Doctors
             _unitOfWork.Commit();
         }
 
+        public void Delete(int id)
+        {
+            var doctor = _repository.GetById(id);
+            _repository.Delete(doctor);
+            _unitOfWork.Commit();
+        }
+
         public GetDoctorDto Get(int id)
         {
             return _repository.Get(id);
