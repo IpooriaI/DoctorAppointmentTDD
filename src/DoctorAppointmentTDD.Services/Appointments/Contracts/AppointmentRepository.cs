@@ -11,7 +11,7 @@ namespace DoctorAppointmentTDD.Services.Appointments.Contracts
         List<GetAppointmentWithDoctorAndPatientDto> GetAll();
         GetAppointmentWithDoctorAndPatientDto Get(int id);
         Appointment GetById(int id);
-        //void Delete(Appointment appointment);
+        void Delete(Appointment appointment);
         int GetCount(int id, DateTime date);
         bool CheckDuplicate(Appointment appointment);
     }

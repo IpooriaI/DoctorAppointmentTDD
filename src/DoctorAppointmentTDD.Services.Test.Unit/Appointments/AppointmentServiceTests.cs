@@ -54,7 +54,7 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
         }
 
         [Fact]
-        public void Add_Throws_exception_VisitTimeIsFullException_if_doctor_has_now_visit_time_today()
+        public void Add_Throws_exception_VisitTimeIsFullException_if_doctor_has_no_visit_time_today()
         {
             var doctor = DoctorFactory
                 .GenerateDoctor("TestName","1234567890");
@@ -195,6 +195,132 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Appointments
                 .Contain(_ => _.PatientId == dto.PatientId);
         }
 
+        [Fact]
+        public void Update_throws_AppointmentDosntExistException_if_the_appointment_dosnt_exist()
+        {
+            var fakeAppointmentId = 20;
+            var dto = AppointmentFactory.GenerateUpdateAppointmentDto(1,2);
 
+            Action expected = () => _sut.Update(fakeAppointmentId,dto);
+
+
+            expected.Should().ThrowExactly<AppointmentDosntExistException>();
+        }
+
+        [Fact]
+        public void Update_Throws_exception_VisitTimeIsFullException_if_doctor_has_no_visit_time_today()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName","1234567890");
+            var secondDoctor = DoctorFactory
+                .GenerateDoctor("UpdatedName", "12345678888");
+            _dataContext
+                .Manipulate(_ => _.Doctors.AddRange(doctor,secondDoctor));
+            var patients = PatientFactory
+                .GeneratePatients();
+            patients.AddRange(PatientFactory.GeneratePatients());
+            _dataContext.Manipulate(_ => _.Patients.AddRange(patients));
+            var appointments = new List<Appointment>
+            {
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[0].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[1].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[2].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[3].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[4].Id,Date=DateTime.Now.Date,},                
+                new Appointment{DoctorId=secondDoctor
+                .Id,PatientId=patients[5].Id,Date=DateTime.Now.Date,},
+            };
+            _dataContext
+                .Manipulate(_ => _.Appointments.AddRange(appointments));
+            var dto = AppointmentFactory
+                .GenerateUpdateAppointmentDto(doctor.Id, patients[5].Id);
+
+
+
+            Action expected =()=> _sut.Update(appointments[5].Id, dto);
+
+
+
+            expected.Should().ThrowExactly<VisitTimeIsFullException>();
+        }
+
+        [Fact]
+        public void Update_throws_exception_DuplicateAppointmentException_if_this_appointment_already_exists_today()
+        {
+            var doctor = DoctorFactory
+               .GenerateDoctor("TestName", "1234567890");
+            var secondDoctor = DoctorFactory
+                .GenerateDoctor("UpdatedName", "12345678888");
+            _dataContext
+                .Manipulate(_ => _.Doctors.AddRange(doctor, secondDoctor));
+            var patients = PatientFactory
+                .GeneratePatients();
+            patients.AddRange(PatientFactory.GeneratePatients());
+            _dataContext.Manipulate(_ => _.Patients.AddRange(patients));
+            var appointments = new List<Appointment>
+            {
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[0].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[1].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[2].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[3].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=doctor
+                .Id,PatientId=patients[4].Id,Date=DateTime.Now.Date,},
+                new Appointment{DoctorId=secondDoctor
+                .Id,PatientId=patients[5].Id,Date=DateTime.Now.Date,},
+            };
+            _dataContext
+                .Manipulate(_ => _.Appointments.AddRange(appointments));
+            var dto = AppointmentFactory
+                .GenerateUpdateAppointmentDto(secondDoctor.Id, patients[5].Id);
+
+
+
+            Action expected = () => _sut.Update(appointments[5].Id, dto);
+
+
+
+            expected.Should().ThrowExactly<DuplicateAppointmentException>();
+        }
+
+        [Fact]
+        public void Delete_deletes_the_Appointment_properly()
+        {
+            var doctor = DoctorFactory
+                .GenerateDoctor("TestName", "1234567890");
+            _dataContext.Manipulate(_ => _.Doctors.Add(doctor));
+            var patient = PatientFactory
+                .GeneratePatient("TestName","1478523690");
+            _dataContext.Manipulate(_ => _.Patients.Add(patient));
+            var appointment = AppointmentFactory
+                .GenerateAppointment(doctor.Id, patient.Id);
+            _dataContext.Manipulate(_ => _.Appointments.Add(appointment));
+
+
+            _sut.Delete(appointment.Id);
+
+
+            _dataContext.Appointments.Should()
+                .NotContain(_ => _.DoctorId == appointment.DoctorId);
+            _dataContext.Appointments.Count().Should().NotBe(1);
+        }
+
+        [Fact]
+        public void Delete_throws_AppointmentDosntExistException_if_the_appointment_dosnt_exist()
+        {
+            var fakeAppointmentId = 20;
+
+            Action expected =()=> _sut.Delete(fakeAppointmentId);
+
+            expected.Should().ThrowExactly<AppointmentDosntExistException>();
+        }
     }
 }

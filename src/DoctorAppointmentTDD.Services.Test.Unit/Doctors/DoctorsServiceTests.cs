@@ -162,6 +162,18 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
         }
 
         [Fact]
+        public void Update_throws_DoctorDosntExistException_if_the_doctor_dosnt_exist()
+        {
+            var dto = DoctorFactory
+                .GenerateUpdateDoctorDto("UpdatedFirstname", "0147852369");
+            var fakeDoctorId = 20;
+
+            Action expected = () => _sut.Update(fakeDoctorId, dto);
+
+            expected.Should().ThrowExactly<DoctorDosntExistException>();
+        }
+
+        [Fact]
         public void Update_throws_exception_DoctorAlreadyExistsException_if_doctor_already_exists()
         {
             var doctor = DoctorFactory
@@ -224,6 +236,16 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Doctors
 
             Doctors = _dataContext.Doctors.ToList();
             Doctors.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void Delete_throws_DoctorDosntExistException_if_the_doctor_dosnt_exist()
+        {
+            var fakeAppointmentId = 20;
+
+            Action expected = () => _sut.Delete(fakeAppointmentId);
+
+            expected.Should().ThrowExactly<DoctorDosntExistException>();
         }
     }
 }

@@ -56,6 +56,12 @@ namespace DoctorAppointmentTDD.Services.Doctors
         public void Delete(int id)
         {
             var doctor = _repository.GetById(id);
+
+            if(doctor == null)
+            {
+                throw new DoctorDosntExistException();
+            }
+
             _repository.Delete(doctor);
             _unitOfWork.Commit();
         }
@@ -82,6 +88,11 @@ namespace DoctorAppointmentTDD.Services.Doctors
 
             var isDoctorExist = _repository
                 .DoesNationalCodeExist(dto.NationalCode, id);
+
+            if(doctor == null)
+            {
+                throw new DoctorDosntExistException();
+            }
 
             if (dto.NationalCode.Length != 10
                 || dto.NationalCode

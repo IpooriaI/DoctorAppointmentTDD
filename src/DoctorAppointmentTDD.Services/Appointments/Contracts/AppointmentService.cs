@@ -10,5 +10,6 @@ namespace DoctorAppointmentTDD.Services.Appointments.Contracts
         List<GetAppointmentWithDoctorAndPatientDto> GetAll();
         GetAppointmentWithDoctorAndPatientDto Get(int id);
         void Update(int id, UpdateAppointmentDto dto);
+        void Delete(int id);
     }
 }

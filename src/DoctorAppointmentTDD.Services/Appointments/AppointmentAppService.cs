@@ -56,13 +56,47 @@ namespace DoctorAppointmentTDD.Services.Appointments
         {
             return _repository.GetAll();
         }
+
+        public void Delete(int id)
+        {
+            var appointment = _repository.GetById(id);
+
+            if(appointment == null)
+            {
+                throw new AppointmentDosntExistException();
+            }
+
+            _repository.Delete(appointment);
+            _unitOfWork.Commit();
+        }
+
         public void Update(int id, UpdateAppointmentDto dto)
         {
             var appointment = _repository.GetById(id);
 
+            if (appointment == null)
+            {
+                throw new AppointmentDosntExistException();
+            }
+
             appointment.Date = dto.Date;
             appointment.PatientId = dto.PatientId;
             appointment.DoctorId = dto.DoctorId;
+
+            var TodayAppointments = _repository
+                .GetCount(dto.DoctorId, dto.Date);
+
+            var duplicateAppointment = _repository
+                .CheckDuplicate(appointment);
+
+            if (TodayAppointments >= 5)
+            {
+                throw new VisitTimeIsFullException();
+            }
+            if (duplicateAppointment == true)
+            {
+                throw new DuplicateAppointmentException();
+            }
 
             _unitOfWork.Commit();
         }

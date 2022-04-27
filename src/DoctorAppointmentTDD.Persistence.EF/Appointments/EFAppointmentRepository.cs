@@ -31,10 +31,10 @@ namespace DoctorAppointmentTDD.Persistence.EF.Appointments
             && _.DoctorId == appointment.DoctorId);
         }
 
-        //public void Delete(Appointment appointment)
-        //{
-        //    _appointments.Remove(appointment);
-        //}
+        public void Delete(Appointment appointment)
+        {
+            _dataContext.Appointments.Remove(appointment);
+        }
 
         public GetAppointmentWithDoctorAndPatientDto Get(int id)
         {

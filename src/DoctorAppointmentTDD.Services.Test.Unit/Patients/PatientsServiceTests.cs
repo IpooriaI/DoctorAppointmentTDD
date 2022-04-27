@@ -164,6 +164,18 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
         }
 
         [Fact]
+        public void Update_throws_PatientDosntExistException_if_the_Patient_dosnt_exist()
+        {
+            var dto = PatientFactory
+                .GenerateUpdatePatientDto("UpdatedFirstname", "0147852369");
+            var fakePatientId = 20;
+
+            Action expected = () => _sut.Update(fakePatientId,dto);
+
+            expected.Should().ThrowExactly<PatientDosntExistException>();
+        }
+
+        [Fact]
         public void Update_throws_exception_PatientAlreadyExistsException_if_patient_already_exists()
         {
             var patient = PatientFactory
@@ -228,5 +240,14 @@ namespace DoctorAppointmentTDD.Services.Test.Unit.Patients
             patients.Should().HaveCount(2);
         }
 
+        [Fact]
+        public void Delete_throws_PatientDosntExistException_if_the_Patient_dosnt_exist()
+        {
+            var fakeAppointmentId = 20;
+
+            Action expected = () => _sut.Delete(fakeAppointmentId);
+
+            expected.Should().ThrowExactly<PatientDosntExistException>();
+        }
     }
 }
